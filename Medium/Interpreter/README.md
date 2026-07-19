@@ -1,5 +1,47 @@
 # Interpreter – Hack The Box Write-up
 
+# Table of Contents
+
+- [1. Overview](#1-overview)
+- [2. Skills Demonstrated](#2-skills-demonstrated)
+- [3. Attack Path](#3-attack-path)
+- [4. Reconnaissance](#4-reconnaissance)
+  - [Objective](#objective)
+  - [Network Discovery](#network-discovery)
+  - [Analysis](#analysis)
+- [5. Enumeration & Vulnerability Identification](#5-enumeration--vulnerability-identification)
+  - [Mirth Connect Identification](#mirth-connect-identification)
+  - [Version Discovery](#version-discovery)
+  - [CVE Research](#cve-research)
+- [6. Initial Access](#6-initial-access)
+  - [Exploiting CVE-2023-43208](#exploiting-cve-2023-43208)
+  - [Exploitation](#exploitation)
+  - [Reverse Shell](#reverse-shell)
+- [7. Shell Stabilization](#7-shell-stabilization)
+- [8. Local Enumeration](#8-local-enumeration)
+  - [Configuration File Discovery](#configuration-file-discovery)
+- [9. Credential Access](#9-credential-access)
+  - [MySQL Enumeration](#mysql-enumeration)
+  - [Password Hash Analysis](#password-hash-analysis)
+  - [Password Cracking](#password-cracking)
+- [10. User Access](#10-user-access)
+  - [SSH Authentication](#ssh-authentication)
+- [11. Privilege Escalation & Root Access](#11-privilege-escalation--root-access)
+  - [Root Service Discovery](#root-service-discovery)
+  - [Source Code Review](#source-code-review)
+  - [Application Analysis](#application-analysis)
+  - [Vulnerability Identification](#vulnerability-identification)
+  - [Root Cause Analysis](#root-cause-analysis)
+  - [Exploitation for Root Shell](#exploitation-for-root-shell)
+  - [Impact](#impact)
+- [12. Remediation](#12-remediation)
+  - [Mirth Connect Remote Code Execution (CVE-2023-43208)](#mirth-connect-remote-code-execution-cve-2023-43208)
+  - [Sensitive Credential Exposure](#sensitive-credential-exposure)
+  - [Weak Password Policy](#weak-password-policy)
+  - [Python Expression Injection](#python-expression-injection)
+  - [Privileged Service Misconfiguration](#privileged-service-misconfiguration)
+- [13. Lessons Learned](#13-lessons-learned)
+
 ## 1. Overview
 
 Mirth is a medium-difficulty Linux machine that demonstrates how an exposed web application can lead to complete system compromise. The attack begins by identifying a vulnerable Mirth Connect instance, followed by exploitation of a known Remote Code Execution vulnerability. After gaining initial access, sensitive configuration files reveal database credentials, allowing recovery of valid SSH credentials. Finally, a vulnerable Python service running with root privileges is exploited to obtain full administrative access.

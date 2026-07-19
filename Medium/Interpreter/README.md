@@ -129,7 +129,7 @@ nmap -sC -sV $ip
 > **Nmap Scan Results**
 > 
 
-![image.png](image.png)
+![image.png](images/nmap-scan-result.png)
 
 ---
 
@@ -156,14 +156,14 @@ Accessing the target through a web browser revealed a web application running **
 > **Mirth Connect Homepage**
 > 
 
-![image.png](image%201.png)
+![image.png](images/mirth-connect-homepage.png)
 
 The landing page contained a **Launch Mirth Connect Administrator** button. Selecting this option initiated the download of a Java Web Start (`webstart.jnlp`) file.
 
 > **Downloaded JNLP File**
 > 
 
-![image.png](image%202.png)
+![image.png](images/downloaded-jnlp-file.png)
 
 ### Version Discovery
 
@@ -172,7 +172,7 @@ The contents of the downloaded JNLP file revealed the exact version of the appli
 > **Mirth Connect Version Information**
 > 
 
-![image.png](image%203.png)
+![image.png](images/mirth-vonnect-version-information.png)
 
 The target was identified as running:
 
@@ -190,7 +190,7 @@ Research identified **CVE-2023-43208**, a publicly disclosed **Remote Code Execu
 | --- | --- | --- |
 | CVE-2023-43208 | High | Remote Code Execution (RCE) vulnerability affecting Mirth Connect 4.4.0. |
 
-![image.png](image%204.png)
+![image.png](images/cve-finding.png)
 
 Additional research located a publicly available Proof-of-Concept (PoC) exploit that could be used to validate the vulnerability.
 
@@ -227,7 +227,7 @@ The exploit was executed against the vulnerable Mirth Connect instance, resultin
 > **Successful Exploitation**
 > 
 
-![image.png](image%205.png)
+![image.png](images/successful-exploitation.png)
 
 ---
 
@@ -263,16 +263,16 @@ During enumeration, the **conf** directory was located, containing the **mirth.p
 > **Configuration Directory**
 > 
 
-![image.png](image%206.png)
+![image.png](images/configuration-directory.png)
 
 The configuration file contained the application's database connection information.
 
 > **Database Credentials**
 > 
 
-![image.png](image%207.png)
+![image.png](images/database-credentials-1.png)
 
-![image.png](image%208.png)
+![image.png](images/database-credentials-2.png)
 
 ---
 
@@ -291,11 +291,11 @@ Inspection of the users table revealed the following account.
 > **Database User Record**
 > 
 
-![image.png](image%209.png)
+![image.png](images/database-user-record-1.png)
 
-![image.png](image%2010.png)
+![image.png](images/database-user-record-2.png)
 
-![image.png](image%2011.png)
+![image.png](images/database-user-record-3.png)
 
 ### Password Hash Analysis
 
@@ -338,7 +338,7 @@ hashcat -m 10900 hash.txt /usr/share/wordlists/rockyou.txt --force
 > **Hashcat Password Recovery**
 > 
 
-![image.png](image%2012.png)
+![image.png](images/hashcat-password-recovery.png)
 
 The dictionary attack successfully recovered the plaintext password.
 
@@ -363,7 +363,7 @@ Authentication succeeded, providing direct shell access as the **sedric** user.
 > **Successful SSH Login**
 > 
 
-![image.png](9c8663a9-3d97-46b3-8484-e0e238e79880.png)
+![image.png](images/successful-ssh-login.png)
 
 The user flag was then successfully captured.
 
@@ -383,7 +383,7 @@ The service was bound to:
 127.0.0.1:54321
 ```
 
-![image.png](image%2013.png)
+![image.png](images/internal-services-enumeration.png)
 
 ### **Source Code Review**
 
@@ -558,10 +558,10 @@ ls -la /tmp/.sh
 whoami
 ```
 
-> **Exploit Payload Execution for root**
+> **Exploit Payload Execution For Root**
 > 
 
-![image.png](f1e17ab3-683a-4762-ac0e-1c23584251e2.png)
+![image.png](images/exploit-payload-execution-for-root.png)
 
 ### Impact
 

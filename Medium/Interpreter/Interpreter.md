@@ -45,9 +45,6 @@
 ## 1. Overview
 
 Mirth is a medium-difficulty Linux machine that demonstrates how an exposed web application can lead to complete system compromise. The attack begins by identifying a vulnerable Mirth Connect instance, followed by exploitation of a known Remote Code Execution vulnerability. After gaining initial access, sensitive configuration files reveal database credentials, allowing recovery of valid SSH credentials. Finally, a vulnerable Python service running with root privileges is exploited to obtain full administrative access.
-
-> 
-> 
 > 
 > **Difficulty:** Medium
 > 
